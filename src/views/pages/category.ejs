@@ -1,0 +1,33 @@
+<%- include('../partials/header') %>
+
+<section class="category-hero">
+    <div class="container">
+        <h1><%= categoryName %></h1>
+        <p>Explore our collection of <%= categoryName %> smartwatches.</p>
+    </div>
+</section>
+
+<section class="product-grid-section">
+    <div class="container">
+        <div class="product-grid">
+            <% if (products.length > 0) { %>
+                <% products.forEach(product => { %>
+                    <div class="product-card">
+                        <a href="/product/<%= product.slug %>" class="product-card-link">
+                            <img src="<%= product.image_url || 'https://via.placeholder.com/400x300/2c2c2e/3a3a3c?text=+' %>" alt="<%= product.name %>" class="product-image">
+                            <div class="product-info">
+                                <h3 class="product-name"><%= product.name %></h3>
+                                <p class="product-price">$<%= product.price %></p>
+                            </div>
+                        </a>
+                        <button class="btn btn-secondary add-to-cart-btn" data-product-id="<%= product.id %>">Add to Cart</button>
+                    </div>
+                <% }) %>
+            <% } else { %>
+                <p class="text-center">No products found in this category.</p>
+            <% } %>
+        </div>
+    </div>
+</section>
+
+<%- include('../partials/footer') %>

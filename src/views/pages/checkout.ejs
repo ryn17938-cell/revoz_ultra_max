@@ -1,0 +1,27 @@
+<%- include('../partials/header') %>
+
+<div class="container checkout-container">
+    <h1>Checkout</h1>
+    <p>This is where the checkout process will happen. It will include forms for shipping information and payment.</p>
+    <form>
+        <h3>Shipping Address</h3>
+        <div class="form-group">
+            <label for="address">Address</label>
+            <input type="text" id="address" name="address" required>
+        </div>
+         <div class="form-group">
+            <label for="city">City</label>
+            <input type="text" id="city" name="city" required>
+        </div>
+        
+        <h3>Payment Information</h3>
+        <div class="form-group">
+            <label for="card-number">Card Number</label>
+            <input type="text" id="card-number" name="card-number" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Place Order</button>
+    </form>
+</div>
+
+<%- include('../partials/footer') %>

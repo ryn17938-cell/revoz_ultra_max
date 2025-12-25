@@ -1,0 +1,113 @@
+<link rel="stylesheet" href="/css/auth.css">
+
+<div class="auth-wrapper single-card">
+    <div class="auth-card">
+        <img src="/img/logo.png" alt="Revoz Logo" class="auth-logo">
+        <h2>Daftar ke Revoz</h2>
+        <p class="subtitle">Mulai perjalanan smart lifestyle Anda</p>
+        <form action="/register" method="POST" id="registerForm">
+            <% if (locals.error) { %>
+                <div class="auth-error"><p><%= error %></p></div>
+            <% } %>
+            <div class="input-group">
+                <i class="fa-solid fa-user"></i>
+                <input type="text" name="name" placeholder="Nama Lengkap" required />
+            </div>
+            <div class="input-group">
+                <i class="fa-solid fa-envelope"></i>
+                <input type="email" name="email" placeholder="Email" required />
+            </div>
+            <div class="input-group">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" name="password" id="registerPassword" placeholder="Password" required minlength="6" />
+                <i class="fa-solid fa-eye password-toggle" id="toggleRegisterPassword"></i>
+            </div>
+            <div class="password-strength">
+                <div class="strength-bar" id="password-strength-bar"></div>
+            </div>
+            <div class="input-group">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Konfirmasi Password" required minlength="6" />
+                <i class="fa-solid fa-eye password-toggle" id="toggleConfirmPassword"></i>
+            </div>
+            <button type="submit" class="auth-btn main-btn" id="registerSubmitBtn">Daftar Sekarang</button>
+        </form>
+        <div class="secondary-action">
+            <p>Sudah punya akun? <a href="/login">Login</a></p>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const registerPasswordInput = document.getElementById('registerPassword');
+        const confirmPasswordInput = document.getElementById('confirmPassword');
+        const passwordStrengthBar = document.getElementById('password-strength-bar');
+
+        // Toggle password visibility
+        document.querySelectorAll('.password-toggle').forEach(toggle => {
+            toggle.addEventListener('click', function() {
+                const passwordField = this.previousElementSibling;
+                if (passwordField.type === 'password') {
+                    passwordField.type = 'text';
+                    this.classList.remove('fa-eye');
+                    this.classList.add('fa-eye-slash');
+                } else {
+                    passwordField.type = 'password';
+                    this.classList.remove('fa-eye-slash');
+                    this.classList.add('fa-eye');
+                }
+            });
+        });
+
+        // Password strength indicator for register form
+        if (registerPasswordInput) {
+            registerPasswordInput.addEventListener('input', () => {
+                const password = registerPasswordInput.value;
+                let strength = 0;
+                // Criteria: length, lowercase, uppercase, numbers, special characters
+                if (password.length >= 8) strength++;
+                if (password.match(/[a-z]+/)) strength++;
+                if (password.match(/[A-Z]+/)) strength++;
+                if (password.match(/[0-9]+/)) strength++;
+                if (password.match(/[^a-zA-Z0-9]+/)) strength++; // Special characters
+
+                passwordStrengthBar.className = 'strength-bar'; // Reset classes
+                if (strength <= 1) {
+                    passwordStrengthBar.classList.add('strength-weak');
+                } else if (strength <= 3) {
+                    passwordStrengthBar.classList.add('strength-medium');
+                } else {
+                    passwordStrengthBar.classList.add('strength-strong');
+                }
+            });
+        }
+
+        // Real-time validation for registration form (password confirmation)
+        if (confirmPasswordInput && registerPasswordInput) {
+            confirmPasswordInput.addEventListener('input', () => {
+                if (registerPasswordInput.value !== confirmPasswordInput.value) {
+                    confirmPasswordInput.setCustomValidity('Passwords do not match');
+                } else {
+                    confirmPasswordInput.setCustomValidity('');
+                }
+            });
+            // Also re-check confirm password if register password changes
+            registerPasswordInput.addEventListener('input', () => {
+                confirmPasswordInput.dispatchEvent(new Event('input')); 
+            });
+        }
+        
+        // Form submission loading state
+        document.getElementById('registerForm')?.addEventListener('submit', function() {
+            document.getElementById('registerSubmitBtn').innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
+            document.getElementById('registerSubmitBtn').disabled = true;
+        });
+
+        // Display error message if present (passed via locals.error)
+        const errorDiv = document.querySelector('.auth-error');
+        if (errorDiv) {
+            errorDiv.style.display = 'block'; // Ensure it's visible if rendered
+        }
+    });
+</script>

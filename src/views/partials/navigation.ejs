@@ -1,0 +1,32 @@
+<header class="header">
+    <div class="container nav-container">
+        <a href="/" class="logo">ChronoWare</a>
+        <nav class="nav">
+            <ul class="nav-list">
+                <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
+                <li class="nav-item nav-item-dropdown">
+                    <a href="#" class="nav-link">Categories</a>
+                    <div class="dropdown-menu">
+                        <% if (allCategories && allCategories.length) { %>
+                            <% allCategories.forEach(category => { %>
+                                <a href="/category/<%= category.slug %>" class="dropdown-item"><%= category.name %></a>
+                            <% }) %>
+                        <% } %>
+                    </div>
+                </li>
+                <li class="nav-item"><a href="/cart" class="nav-link">Cart</a></li>
+
+                <% if (session.isLoggedIn) { %>
+                    <% if (session.user.role_id === 1) { %>
+                        <li class="nav-item"><a href="/admin/dashboard" class="nav-link">Admin</a></li>
+                    <% } %>
+                    <li class="nav-item"><a href="/logout" class="nav-link">Logout</a></li>
+                    <li class="nav-item nav-user"><span>Welcome, <%= session.user.name %></span></li>
+                <% } else { %>
+                    <li class="nav-item"><a href="/login" class="nav-link">Login</a></li>
+                    <li class="nav-item"><a href="/register" class="nav-link primary-link">Register</a></li>
+                <% } %>
+            </ul>
+        </nav>
+    </div>
+</header>

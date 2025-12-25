@@ -1,0 +1,75 @@
+<link rel="stylesheet" href="/css/auth.css">
+
+<div class="auth-wrapper single-card">
+    <div class="auth-card">
+        <img src="/img/logo.png" alt="Revoz Logo" class="auth-logo">
+        <h2>Login ke Revoz</h2>
+        <p class="subtitle">Smart control for your lifestyle</p>
+        <form action="/login" method="POST" id="loginForm">
+            <% if (locals.error) { %>
+                <div class="auth-error"><p><%= error %></p></div>
+            <% } %>
+            <% if (locals.message && locals.type === 'success') { %>
+                <div class="auth-message auth-message-success"><p><%= message %></p></div>
+            <% } %>
+            <div class="input-group">
+                <i class="fa-solid fa-envelope"></i>
+                <input type="email" name="email" placeholder="Email" required />
+            </div>
+            <div class="input-group">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" name="password" id="loginPassword" placeholder="Password" required />
+                <i class="fa-solid fa-eye password-toggle" id="toggleLoginPassword"></i>
+            </div>
+            <div class="extra-features">
+                <label class="remember-me">
+                    <input type="checkbox" name="rememberMe">
+                    Ingat Saya
+                </label>
+                <a href="#">Lupa password?</a>
+            </div>
+            <button type="submit" class="auth-btn main-btn" id="loginSubmitBtn">Login</button>
+        </form>
+        <div class="secondary-action">
+            <p>Belum punya akun? <a href="/register">Daftar</a></p>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const loginPassword = document.getElementById('loginPassword');
+
+        // Toggle password visibility
+        document.querySelectorAll('.password-toggle').forEach(toggle => {
+            toggle.addEventListener('click', function() {
+                const passwordField = this.previousElementSibling;
+                if (passwordField.type === 'password') {
+                    passwordField.type = 'text';
+                    this.classList.remove('fa-eye');
+                    this.classList.add('fa-eye-slash');
+                } else {
+                    passwordField.type = 'password';
+                    this.classList.remove('fa-eye-slash');
+                    this.classList.add('fa-eye');
+                }
+            });
+        });
+        
+        // Form submission loading state
+        document.getElementById('loginForm')?.addEventListener('submit', function() {
+            document.getElementById('loginSubmitBtn').innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
+            document.getElementById('loginSubmitBtn').disabled = true;
+        });
+
+        // Display error message if present (passed via locals.error)
+        const errorDiv = document.querySelector('.auth-error');
+        if (errorDiv) {
+            errorDiv.style.display = 'block'; // Ensure it's visible if rendered
+        }
+        const messageDiv = document.querySelector('.auth-message');
+        if (messageDiv) {
+            messageDiv.style.display = 'block';
+        }
+    });
+</script>

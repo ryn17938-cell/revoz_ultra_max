@@ -1,0 +1,75 @@
+<%- include('../partials/header') %>
+
+<div class="container admin-container">
+    <div class="admin-layout">
+        <div class="admin-sidebar">
+            <h3>Menu</h3>
+            <ul>
+                <li><a href="/admin/dashboard">Dashboard</a></li>
+                <li><a href="/admin/products">Products</a></li>
+                <li><a href="/admin/orders">Orders</a></li>
+                <li class="active"><a href="/admin/users">Users</a></li>
+            </ul>
+        </div>
+
+        <div class="admin-main-content">
+            <h1>User Management</h1>
+
+            <div class="card">
+                <h3>All Customers</h3>
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>User ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Registered</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% users.forEach(user => { %>
+                                <tr>
+                                    <td>#<%= user.id %></td>
+                                    <td><%= user.name %></td>
+                                    <td><%= user.email %></td>
+                                    <td><%= new Date(user.created_at).toLocaleDateString() %></td>
+                                    <td>
+                                        <% if (user.is_active) { %>
+                                            <span class="status-badge status-active">Active</span>
+                                        <% } else { %>
+                                            <span class="status-badge status-blocked">Blocked</span>
+                                        <% } %>
+                                    </td>
+                                    <td class="table-actions">
+                                        <form action="/admin/users/toggle-status/<%= user.id %>" method="POST">
+                                            <button type="submit" class="btn btn-secondary btn-sm">
+                                                <%= user.is_active ? 'Block' : 'Unblock' %>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .status-badge {
+        padding: 0.3em 0.8em;
+        border-radius: 15px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: capitalize;
+    }
+    .status-active { background-color: #5cb85c; color: #fff; }
+    .status-blocked { background-color: #d9534f; color: #fff; }
+</style>
+
+<%- include('../partials/footer') %>

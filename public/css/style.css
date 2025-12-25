@@ -1,0 +1,415 @@
+/* === CSS RESET & GLOBAL STYLES === */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --dark-bg: #0D0D1A;
+    --primary-surface: #1A1A2E;
+    --accent-blue: #00A9FF;
+    --accent-purple: #8E44AD;
+    --text-primary: #F0F0F0;
+    --text-secondary: #A0A0A0;
+    --border-radius: 12px;
+    --transition-speed: 0.3s;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--dark-bg);
+    color: var(--text-primary);
+    line-height: 1.6;
+}
+
+main {
+    overflow-x: hidden;
+}
+
+/* === UTILITIES === */
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    font-weight: 600;
+}
+
+.btn {
+    display: inline-block;
+    padding: 0.8rem 1.8rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all var(--transition-speed) ease;
+    border: 2px solid transparent;
+}
+
+.btn-primary {
+    background-color: var(--accent-blue);
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #fff;
+    color: var(--accent-blue);
+    border-color: var(--accent-blue);
+    transform: translateY(-3px);
+    box-shadow: 0 0 20px rgba(0, 169, 255, 0.5);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--text-primary);
+    border-color: var(--text-secondary);
+}
+
+.btn-secondary:hover {
+    background-color: var(--text-primary);
+    color: var(--dark-bg);
+    border-color: var(--text-primary);
+    transform: translateY(-3px);
+    box-shadow: 0 0 20px rgba(240, 240, 240, 0.4);
+}
+
+
+/* === HEADER & NAVBAR === */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 5%;
+    background-color: rgba(13, 13, 26, 0.8);
+    backdrop-filter: blur(10px);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.navbar-brand a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--text-primary);
+}
+
+.logo {
+    height: 40px;
+    margin-right: 15px;
+}
+
+.brand-name {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 2.5rem;
+}
+
+.nav-link {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-weight: 500;
+    position: relative;
+    transition: color var(--transition-speed) ease;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--accent-blue);
+    transition: width var(--transition-speed) ease;
+}
+
+.nav-link:hover {
+    color: var(--text-primary);
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 0.7rem 1.5rem;
+    background-image: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
+    color: #fff;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+}
+
+.cta-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(0, 169, 255, 0.5);
+}
+
+/* === NEW HERO SECTION (OVERLAY) === */
+.hero-section-overlay {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center content horizontally */
+    padding: 0 5%;
+    text-align: center; /* Center text within the content block */
+    position: relative;
+    background-image: url('/img/banner.png');
+    background-size: cover;
+    background-position: center 40%; /* Menggeser gambar ke atas untuk menyembunyikan bagian bawah */
+    color: #fff;
+}
+
+.hero-section-overlay::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(13, 13, 26, 0.6); /* Dark overlay */
+    z-index: 1;
+}
+
+.hero-overlay-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.hero-logo {
+    height: 50px;
+    margin-bottom: 1rem;
+    opacity: 0.9;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    margin-bottom: 0.5rem;
+}
+
+.hero-subtitle {
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--text-secondary);
+    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+    margin-bottom: 1rem;
+}
+
+.hero-description {
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto 2rem auto;
+    color: var(--text-primary);
+    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+}
+
+.hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+
+/* === SECTIONS GENERAL === */
+.fitur-section, .produk-section, .tentang-section {
+    padding: 6rem 5%;
+}
+
+/* === FITUR SECTION === */
+.fitur-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.fitur-card {
+    background-color: var(--primary-surface);
+    padding: 2.5rem;
+    text-align: center;
+    border-radius: var(--border-radius);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+}
+
+.fitur-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(0, 169, 255, 0.1);
+}
+
+.fitur-card i {
+    font-size: 3rem;
+    color: var(--accent-blue);
+    margin-bottom: 1.5rem;
+}
+
+.fitur-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.fitur-card p {
+    color: var(--text-secondary);
+}
+
+
+/* === PRODUK SECTION === */
+.produk-section {
+    background-color: var(--primary-surface);
+}
+
+.produk-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.produk-card {
+    background-color: var(--dark-bg);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform var(--transition-speed) ease;
+}
+
+.produk-card:hover {
+    transform: scale(1.03);
+}
+
+.produk-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    background-color: #2c2c3e;
+}
+
+.produk-info {
+    padding: 1.5rem;
+}
+
+.produk-info h3 {
+    font-size: 1.5rem;
+}
+
+.harga {
+    font-size: 1.2rem;
+    color: var(--accent-blue);
+    margin: 0.5rem 0 1rem;
+}
+
+.btn-detail {
+    width: 100%;
+    text-align: center;
+    background-color: var(--primary-surface);
+    border: 1px solid var(--accent-blue);
+    color: var(--accent-blue);
+}
+
+.btn-detail:hover {
+    background-color: var(--accent-blue);
+    color: #fff;
+}
+
+
+/* === TENTANG SECTION === */
+.tentang-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.tentang-content p {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+}
+
+/* === FOOTER === */
+.footer {
+    background-color: var(--primary-surface);
+    padding: 4rem 5% 2rem;
+    text-align: center;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.footer-brand .logo {
+    height: 40px;
+    margin-bottom: 1rem;
+}
+
+.footer-social {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.social-link {
+    color: var(--text-secondary);
+    font-size: 1.5rem;
+    transition: color var(--transition-speed) ease, transform var(--transition-speed) ease;
+}
+
+.social-link:hover {
+    color: var(--accent-blue);
+    transform: translateY(-3px);
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 2rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+
+/* === ANIMATIONS === */
+.animate-fade-in {
+    opacity: 0;
+    animation: fadeIn 1s ease forwards;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+.animate-delay-1 { animation-delay: 0.2s; }
+.animate-delay-2 { animation-delay: 0.4s; }
+.animate-delay-3 { animation-delay: 0.6s; }
+
+.fade-in-section {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.fade-in-section.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}

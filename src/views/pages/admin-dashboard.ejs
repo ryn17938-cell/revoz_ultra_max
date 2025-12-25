@@ -1,0 +1,72 @@
+<%- include('../partials/header') %>
+
+<div class="container admin-container">
+    <div class="admin-layout">
+        <div class="admin-sidebar">
+            <h3>Menu</h3>
+            <ul>
+                <li class="active"><a href="/admin/dashboard">Dashboard</a></li>
+                <li><a href="/admin/products">Products</a></li>
+                <li><a href="/admin/orders">Orders</a></li>
+                <li><a href="/admin/users">Users</a></li>
+            </ul>
+        </div>
+
+        <div class="admin-main-content">
+            <h1>Admin Dashboard</h1>
+            
+            <!-- Stats Overview -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h4>Total Products</h4>
+                    <p><%= stats.totalProducts %></p>
+                </div>
+                <div class="stat-card">
+                    <h4>Total Users</h4>
+                    <p><%= stats.totalUsers %></p>
+                </div>
+                <div class="stat-card">
+                    <h4>Total Orders</h4>
+                    <p><%= stats.totalOrders %></p>
+                </div>
+                <div class="stat-card">
+                    <h4>Total Revenue</h4>
+                    <p>$<%= parseFloat(stats.totalRevenue).toFixed(2) %></p>
+                </div>
+            </div>
+
+            <!-- Future content like sales graphs can go here -->
+            <div class="card">
+                <h3>Sales Overview</h3>
+                <p>Sales chart will be implemented here.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+    .stat-card {
+        background-color: var(--primary-surface);
+        padding: 1.5rem;
+        border-radius: var(--border-radius);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .stat-card h4 {
+        color: var(--text-secondary);
+        font-size: 1rem;
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+    }
+    .stat-card p {
+        font-size: 2rem;
+        font-weight: 600;
+    }
+</style>
+
+<%- include('../partials/footer') %>

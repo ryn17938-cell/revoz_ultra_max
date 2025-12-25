@@ -1,0 +1,25 @@
+<%- include('../partials/header') %>
+
+<div class="container cart-container">
+    <h1>Your Shopping Cart</h1>
+    <% if (typeof cartItems !== 'undefined' && cartItems.length > 0) { %>
+        <div class="cart-items">
+            <% cartItems.forEach(item => { %>
+                <div class="cart-item">
+                    <!-- Cart item details here -->
+                </div>
+            <% }) %>
+        </div>
+        <div class="cart-summary">
+            <h3>Total: $0.00</h3>
+            <a href="/checkout" class="btn btn-primary">Proceed to Checkout</a>
+        </div>
+    <% } else { %>
+        <div class="empty-cart">
+            <p>Your cart is empty.</p>
+            <a href="/" class="btn btn-primary">Continue Shopping</a>
+        </div>
+    <% } %>
+</div>
+
+<%- include('../partials/footer') %>
